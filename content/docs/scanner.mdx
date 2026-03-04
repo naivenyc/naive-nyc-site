@@ -1,0 +1,134 @@
+---
+title: Scanner
+description: Configure the accessibility scanner, set up scheduled scans, and integrate with CI/CD.
+order: 2
+---
+
+# Scanner Configuration
+
+The Naive AI scanner is a headless-browser crawler that tests each page against WCAG 2.1 AA and WCAG 2.2 AA success criteria. This page covers advanced configuration options.
+
+## Scan Settings
+
+Navigate to **Websites → [Your Site] → Settings** to configure:
+
+| Setting | Default | Description |
+|---------|---------|-------------|
+| Scan depth | 3 | How many link hops from root to follow |
+| Max pages | 500 | Maximum pages per scan |
+| JavaScript | Enabled | Render JS before testing |
+| Auth headers | None | Add cookies or auth headers for gated pages |
+| Exclude paths | None | Regex patterns to skip (e.g., `/admin/.*`) |
+| Viewport | 1280×800 | Browser viewport for rendering |
+
+## Excluding Pages
+
+To exclude paths from scanning, add regex patterns in the **Exclusions** field, one per line:
+
+```
+/admin/.*
+/api/.*
+/private/.*
+```
+
+## Authenticated Scanning
+
+For sites requiring login, provide session cookies:
+
+1. Log in to your site in Chrome
+2. Open DevTools → Application → Cookies
+3. Copy the session cookie value
+4. In Naive AI: Settings → Auth → Add Cookie → paste name and value
+
+The scanner will include the cookie on all requests, allowing it to crawl authenticated pages.
+
+## Scheduled Scans
+
+Go to **Settings → Schedule** to configure automated scans:
+
+- **Daily** — runs at a specified UTC hour
+- **Weekly** — runs on a chosen day and hour
+- **On deploy** — trigger via webhook after each deployment
+
+Scheduled scan results are emailed to all team members with the Editor role and above.
+
+## CI/CD Integration
+
+On Pro and above plans, use our CLI or GitHub Actions integration to scan on every pull request.
+
+### GitHub Actions
+
+Create `.github/workflows/accessibility.yml`:
+
+```yaml
+name: Accessibility Check
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  accessibility:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Naive AI Accessibility Check
+        uses: naivenyc/accessibility-action@v1
+        with:
+          api-key: ${{ secrets.NAIVE_API_KEY }}
+          site-id: ${{ secrets.NAIVE_SITE_ID }}
+          url: ${{ steps.deploy-preview.outputs.url }}
+          fail-on: critical,serious
+```
+
+### GitLab CI
+
+```yaml
+accessibility:
+  image: node:20
+  stage: test
+  script:
+    - npx naive-cli scan --url $PREVIEW_URL --api-key $NAIVE_API_KEY
+  allow_failure: false
+  only:
+    - merge_requests
+```
+
+### Failure Thresholds
+
+Configure what severity levels should fail a build:
+
+- `critical` — block on any critical issue
+- `serious` — block on serious or critical
+- `any` — block on any new issue
+- `none` — report only, never block
+
+## Scan Report Format
+
+The scanner returns results in JSON:
+
+```json
+{
+  "url": "https://example.com",
+  "scanId": "sc_abc123",
+  "score": 72,
+  "pages": 48,
+  "issues": {
+    "critical": 3,
+    "serious": 12,
+    "moderate": 28,
+    "minor": 15
+  },
+  "violations": [
+    {
+      "id": "image-alt",
+      "wcag": "1.1.1",
+      "level": "A",
+      "severity": "critical",
+      "count": 3,
+      "pages": ["https://example.com/about", "https://example.com/team"]
+    }
+  ]
+}
+```

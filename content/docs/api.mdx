@@ -1,0 +1,226 @@
+---
+title: API Reference
+description: Authenticate, run scans, and retrieve reports via the Naive AI REST API.
+order: 4
+---
+
+# API Reference
+
+The Naive AI REST API lets you integrate accessibility scanning into your own tools, dashboards, and workflows. The API is available on Pro and above plans.
+
+## Authentication
+
+All API requests require a bearer token. Generate API keys in **Settings → API Keys**.
+
+```bash
+curl https://api.naive.nyc/v1/scan \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json"
+```
+
+API keys have configurable scopes:
+
+| Scope | Description |
+|-------|-------------|
+| `scan:read` | View scan results |
+| `scan:write` | Trigger scans |
+| `report:read` | Download reports |
+| `site:read` | List and view sites |
+| `site:write` | Create and update sites |
+
+## Base URL
+
+```
+https://api.naive.nyc/v1
+```
+
+## Endpoints
+
+### Trigger a Scan
+
+`POST /scan`
+
+Start a new accessibility scan for a registered site or an ad-hoc URL.
+
+**Request:**
+
+```json
+{
+  "siteId": "site_abc123",
+  "url": "https://example.com",
+  "options": {
+    "depth": 3,
+    "maxPages": 100,
+    "standard": "wcag22aa"
+  }
+}
+```
+
+**Response:**
+
+```json
+{
+  "scanId": "sc_xyz789",
+  "status": "queued",
+  "estimatedSeconds": 120,
+  "statusUrl": "https://api.naive.nyc/v1/scan/sc_xyz789"
+}
+```
+
+### Get Scan Status
+
+`GET /scan/:scanId`
+
+Poll for scan status and results.
+
+**Response (completed):**
+
+```json
+{
+  "scanId": "sc_xyz789",
+  "status": "completed",
+  "completedAt": "2025-11-01T14:32:00Z",
+  "score": 82,
+  "pages": 43,
+  "issues": {
+    "critical": 1,
+    "serious": 5,
+    "moderate": 18,
+    "minor": 9
+  }
+}
+```
+
+**Status values:** `queued` · `running` · `completed` · `failed`
+
+### List Scans
+
+`GET /scans?siteId=site_abc123&limit=20&cursor=...`
+
+Returns paginated scan history for a site.
+
+### Get Violations
+
+`GET /scan/:scanId/violations`
+
+Returns the full list of violations with details.
+
+**Response:**
+
+```json
+{
+  "violations": [
+    {
+      "id": "image-alt",
+      "wcag": "1.1.1",
+      "level": "A",
+      "severity": "critical",
+      "description": "Image elements must have an alt attribute",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.6/image-alt",
+      "nodes": [
+        {
+          "url": "https://example.com/about",
+          "html": "<img src=\"/team.jpg\">",
+          "selector": "main > section > img",
+          "fix": "Add alt attribute: <img src=\"/team.jpg\" alt=\"Our team\">"
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Generate Report
+
+`POST /report`
+
+Generate a downloadable compliance report.
+
+**Request:**
+
+```json
+{
+  "scanId": "sc_xyz789",
+  "format": "pdf",
+  "type": "wcag"
+}
+```
+
+**Supported formats:** `pdf` · `json` · `csv` · `vpat`
+
+**Response:**
+
+```json
+{
+  "reportId": "rpt_abc",
+  "downloadUrl": "https://api.naive.nyc/v1/report/rpt_abc/download",
+  "expiresAt": "2025-11-08T14:32:00Z"
+}
+```
+
+### List Sites
+
+`GET /sites`
+
+Returns all sites associated with your account.
+
+## Webhooks
+
+Configure webhooks in **Settings → Webhooks** to receive scan completion events.
+
+**Payload:**
+
+```json
+{
+  "event": "scan.completed",
+  "scanId": "sc_xyz789",
+  "siteId": "site_abc123",
+  "score": 82,
+  "criticalCount": 1,
+  "timestamp": "2025-11-01T14:32:00Z"
+}
+```
+
+Webhook requests include a `X-Naive-Signature` header (HMAC-SHA256) for verification:
+
+```js
+const crypto = require('crypto')
+
+function verifyWebhook(payload, signature, secret) {
+  const expected = crypto
+    .createHmac('sha256', secret)
+    .update(payload)
+    .digest('hex')
+  return crypto.timingSafeEqual(
+    Buffer.from(signature),
+    Buffer.from(expected)
+  )
+}
+```
+
+## Rate Limits
+
+| Plan | Scans/day | API calls/min |
+|------|-----------|---------------|
+| Pro | 50 | 60 |
+| Business | 200 | 300 |
+| Enterprise | Unlimited | Custom |
+
+Rate limit headers are included in all responses:
+
+```
+X-RateLimit-Limit: 60
+X-RateLimit-Remaining: 59
+X-RateLimit-Reset: 1699000000
+```
+
+## SDKs
+
+Official SDKs are available for:
+
+- **JavaScript/TypeScript** — `npm install @naive-ai/sdk`
+- **Python** — `pip install naive-ai`
+- **Java** — Maven: `com.naive-ai:client`
+- **.NET** — NuGet: `NaiveAI.Client`
+
+See the [API Platform dashboard](/dashboard/api-platform) for SDK documentation and examples.

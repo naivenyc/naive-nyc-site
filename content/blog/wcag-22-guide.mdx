@@ -1,0 +1,78 @@
+---
+title: "WCAG 2.2: What's New and What You Need to Know"
+date: "2025-10-15"
+description: "A practical breakdown of the new success criteria in WCAG 2.2 and what they mean for your team."
+author: "Naive AI Team"
+readTime: "5 min read"
+---
+
+WCAG 2.2 became a W3C Recommendation in October 2023, adding nine new success criteria to the existing WCAG 2.1 standard. If your site targets WCAG 2.1 AA compliance today, you're likely missing several important new requirements. Here's what changed and what you need to do.
+
+## What's New in WCAG 2.2
+
+### 2.4.11 Focus Not Obscured (Minimum) — Level AA
+
+When a user navigates to a UI component via keyboard, the component must not be entirely hidden by sticky headers, cookie banners, or other overlapping content. Partially visible is acceptable at this level, but completely hidden is not.
+
+**What to do:** Ensure your sticky navigation and cookie consent banners account for focused elements. Use `scroll-margin-top` in CSS to offset scroll position.
+
+### 2.4.12 Focus Not Obscured (Enhanced) — Level AAA
+
+The stricter version: the focused component must be *fully* visible. This is AAA, so it's optional for most compliance targets, but it's worth aiming for.
+
+### 2.4.13 Focus Appearance — Level AA
+
+The keyboard focus indicator must meet a minimum size and contrast ratio. Specifically, the focus indicator must:
+
+- Enclose the component
+- Have a contrast ratio of at least 3:1 between focused and unfocused states
+- Have an area of at least the perimeter of the unfocused component × 2 CSS pixels
+
+**What to do:** Avoid removing `outline: none` without providing a strong custom focus style. Use `focus-visible` pseudo-class for cleaner keyboard-only indicators.
+
+### 2.5.7 Dragging Movements — Level AA
+
+Any functionality that requires dragging must also be operable with a single pointer (click/tap) without dragging. This helps users with motor impairments who cannot perform drag gestures.
+
+**What to do:** Provide alternative controls (buttons, dropdowns) for drag-and-drop interfaces like kanban boards, sliders, and file upload zones.
+
+### 2.5.8 Target Size (Minimum) — Level AA
+
+Interactive targets must be at least 24×24 CSS pixels, OR have sufficient spacing so the total target area is at least 24×24 pixels.
+
+**What to do:** Audit small icon buttons and inline links. Increase padding, not just icon size. 44×44 is still the recommended size for comfortable touch interaction.
+
+### 3.2.6 Consistent Help — Level A
+
+If a website provides a help mechanism (chat, phone number, email) on multiple pages, it must appear in the same relative location across pages.
+
+**What to do:** Standardize where help links, live chat widgets, and contact info appear across your site.
+
+### 3.3.7 Redundant Entry — Level A
+
+Users must not have to re-enter information they've already provided in the same session, unless re-entry is essential or for security.
+
+**What to do:** Pre-fill forms with previously submitted data where possible. Store billing/shipping addresses between checkout steps.
+
+### 3.3.8 Accessible Authentication (Minimum) — Level AA
+
+Authentication processes must not require solving cognitive function tests (CAPTCHAs, puzzles, memorizing codes) unless an alternative method is available.
+
+**What to do:** Offer at least one CAPTCHA-free auth path: passkeys, magic links, or OAuth. If using CAPTCHA, provide an audio or alternative version.
+
+### 3.3.9 Accessible Authentication (Enhanced) — Level AAA
+
+No cognitive function tests at all in authentication — full stop.
+
+## What Was Removed
+
+**4.1.3 Status Messages** remains, but **1.3.4 Orientation** and **1.4.10 Reflow** are updated. Notably, WCAG 2.2 removes **4.1.1 Parsing**, which required valid HTML. Modern browser handling makes this criterion obsolete.
+
+## Practical Next Steps
+
+1. **Run a WCAG 2.2 audit** — tools like Naive AI now test for all new 2.2 criteria
+2. **Prioritize Level A and AA** — 2.5.8, 3.3.7, 3.3.8, and 2.4.11 are the highest-impact new criteria
+3. **Update your VPAT** — if you have an existing Accessibility Conformance Report, revise it to reference WCAG 2.2
+4. **Train your team** — developers often don't know about Focus Appearance and Target Size requirements
+
+WCAG 2.2 reflects how people actually use the web today: on touch devices, with cognitive differences, and with motor disabilities. Compliance isn't just about avoiding lawsuits — it's about building products that work for everyone.

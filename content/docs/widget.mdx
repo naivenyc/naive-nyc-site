@@ -1,0 +1,122 @@
+---
+title: Accessibility Widget
+description: Embed the Naive AI accessibility widget on your site and customize its appearance and behavior.
+order: 3
+---
+
+# Accessibility Widget
+
+The Naive AI Accessibility Widget is a lightweight JavaScript component that gives your users control over their browsing experience. It adds a toolbar for adjusting font size, contrast, motion, and more — without modifying your site's underlying code.
+
+## Quick Start
+
+Add the embed snippet before your closing `</body>` tag:
+
+```html
+<script
+  src="https://cdn.naive.nyc/widget/v2/widget.js"
+  data-site-id="YOUR_SITE_ID"
+  async
+></script>
+```
+
+Replace `YOUR_SITE_ID` with your site ID from the Naive AI dashboard (Settings → Widget).
+
+The widget loads asynchronously and adds a floating button to your page. Clicking it opens the accessibility panel.
+
+## Widget Features
+
+| Feature | Description |
+|---------|-------------|
+| Font size | Increase text size up to 200% |
+| Letter spacing | Improve readability for dyslexia |
+| High contrast | Switch to high-contrast mode |
+| Grayscale | Remove color distractions |
+| Highlight links | Make all links visually distinct |
+| Stop animations | Pause CSS and JS animations |
+| Screen reader hints | Add visible labels to ARIA-labeled elements |
+| Reading guide | Horizontal ruler follows cursor |
+| Focus indicator | Bold focus ring for keyboard users |
+
+User preferences are saved in `localStorage` and persist across sessions.
+
+## Customization Options
+
+Pass configuration via data attributes or the `window.NaiveWidget` config object.
+
+### Data Attributes
+
+```html
+<script
+  src="https://cdn.naive.nyc/widget/v2/widget.js"
+  data-site-id="YOUR_SITE_ID"
+  data-position="bottom-left"
+  data-primary-color="#2563eb"
+  data-language="en"
+  data-features="font-size,contrast,motion"
+  async
+></script>
+```
+
+### JavaScript Config
+
+```js
+window.NaiveWidgetConfig = {
+  siteId: 'YOUR_SITE_ID',
+  position: 'bottom-right',    // top-left | top-right | bottom-left | bottom-right
+  primaryColor: '#2563eb',     // hex color
+  language: 'auto',            // auto | en | es | fr | de | etc.
+  features: ['font-size', 'contrast', 'motion', 'links', 'spacing'],
+  trigger: {
+    label: 'Accessibility',
+    icon: true,
+  },
+}
+```
+
+### Supported Languages
+
+The widget UI is available in 12 languages. Set `language: 'auto'` to detect from the user's browser.
+
+## ARIA Attributes
+
+The widget is fully accessible itself:
+
+- The trigger button has `aria-label="Accessibility options"` and `aria-expanded`
+- The panel is a `role="dialog"` with `aria-labelledby`
+- All controls have associated labels and keyboard support
+- Focus is trapped within the panel when open
+
+## Programmatic Control
+
+```js
+// Open the widget panel
+window.NaiveWidget.open()
+
+// Close the widget panel
+window.NaiveWidget.close()
+
+// Apply a specific profile
+window.NaiveWidget.applyProfile('high-contrast')
+
+// Reset all settings
+window.NaiveWidget.reset()
+
+// Listen for events
+window.NaiveWidget.on('open', () => console.log('Widget opened'))
+window.NaiveWidget.on('change', (settings) => console.log(settings))
+```
+
+## Content Security Policy
+
+If your site uses CSP, add the following to your policy:
+
+```
+script-src 'self' https://cdn.naive.nyc;
+style-src 'self' https://cdn.naive.nyc;
+connect-src 'self' https://api.naive.nyc;
+```
+
+## White-Label
+
+On Business and Enterprise plans, you can fully white-label the widget: custom domain for the script, your branding, and no Naive AI attribution. See [White-Label configuration](/docs/white-label) for details.

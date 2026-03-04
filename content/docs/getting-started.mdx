@@ -1,0 +1,70 @@
+---
+title: Getting Started
+description: Create your account, add your first website, and run your first accessibility scan.
+order: 1
+---
+
+# Getting Started with Naive AI
+
+Welcome to Naive AI. This guide walks you through account setup, adding your first website, and interpreting your first scan results.
+
+## 1. Create Your Account
+
+Go to [ai.naive.nyc/signup](https://ai.naive.nyc/signup) and sign up with your email or Google account. The Free plan is available immediately with no credit card required.
+
+## 2. Add Your First Website
+
+After signing in, you'll land on the Dashboard. Click **Add Website** and enter:
+
+- **URL** — the root URL of your site (e.g., `https://example.com`)
+- **Name** — a friendly label (e.g., "Main Site")
+- **Scan depth** — how many levels of links to follow (default: 3)
+
+Click **Save**. Your website is now registered and ready to scan.
+
+## 3. Run Your First Scan
+
+From the Websites list, click **Scan Now** next to your site. The scanner will:
+
+1. Crawl your site starting from the root URL
+2. Follow internal links up to the configured depth
+3. Test each page against WCAG 2.2 AA criteria
+4. Analyze images, forms, colors, keyboard flow, and ARIA usage
+
+Scan time depends on site size. A typical 50-page site takes 2–4 minutes.
+
+## 4. Review Your Results
+
+When the scan completes, you'll see:
+
+- **Accessibility Score** — 0–100, weighted by issue severity
+- **Issue count** by severity: Critical · Serious · Moderate · Minor
+- **Page-by-page breakdown** — sorted by issue count
+
+Click any issue to see:
+- The WCAG criterion violated (e.g., 1.1.1 Non-text Content)
+- The failing HTML element
+- A plain-English explanation
+- A suggested fix with code example
+
+## 5. Fix Issues
+
+Issues are categorized by **effort**:
+
+| Level | Description |
+|-------|-------------|
+| Quick Win | Fix in under 5 minutes — usually a missing attribute |
+| Code Change | Requires a developer; includes a code snippet |
+| Design Change | Requires UX/design input (e.g., color contrast) |
+
+Click **Copy Fix** to copy the suggested code to your clipboard.
+
+## 6. Schedule Recurring Scans
+
+Go to **Settings → Scan Schedule** to set up daily or weekly automated scans. You'll receive an email summary after each scan with score changes and new issues.
+
+## Next Steps
+
+- [Scanner Configuration](/docs/scanner) — advanced crawler options, exclusions, and CI/CD setup
+- [Accessibility Widget](/docs/widget) — embed the end-user accessibility widget on your site
+- [API Reference](/docs/api) — integrate Naive AI into your own tools and workflows
