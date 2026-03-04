@@ -26,6 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body className="font-sans antialiased min-h-screen flex flex-col">
+        <a href="#main-content" className="skip-link">Skip to main content</a>
         <Nav />
         <main id="main-content" className="flex-1">
           {children}

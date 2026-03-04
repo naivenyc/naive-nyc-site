@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Logo } from '@/components/logo'
 
 const footerLinks = {
   Product: [
@@ -24,8 +25,8 @@ export function Footer() {
       <div className="container py-12">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="font-bold text-lg">
-              Naive AI
+            <Link href="/" aria-label="Naive AI — home" className="inline-flex focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm">
+              <Logo />
             </Link>
             <p className="mt-2 text-sm text-muted-foreground max-w-xs">
               AI-powered web accessibility platform for teams of any size.
