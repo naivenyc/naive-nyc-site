@@ -12,9 +12,9 @@ const footerLinks = {
     { label: 'WCAG Guide', href: '/blog/wcag-22-guide' },
   ],
   Company: [
-    { label: 'About', href: '#' },
-    { label: 'Privacy', href: '#' },
-    { label: 'Terms', href: '#' },
+    { label: 'About', href: '/about' },
+    { label: 'Privacy', href: '/privacy' },
+    { label: 'Terms', href: '/terms' },
   ],
 }
 
