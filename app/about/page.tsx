@@ -9,9 +9,9 @@ export const metadata: Metadata = {
 
 const team = [
   {
-    name: 'Nataliya',
+    name: 'Nataliya Hanchych',
     role: 'Founder & CEO',
-    bio: 'Building accessible software since 2014. Former engineer at Stripe and Figma.',
+    bio: 'Building accessible software since 2024. Doing accessibility testing since 2020.',
   },
 ]
 
