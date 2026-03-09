@@ -28,7 +28,7 @@ export default function Home() {
             <Button size="lg" variant="secondary" asChild>
               <a href="https://ai.naive.nyc/signup">Get started free →</a>
             </Button>
-            <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
+            <Button size="lg" variant="outline" className="border-white text-white bg-transparent hover:bg-white hover:text-primary" asChild>
               <Link href="/demo">Book a demo</Link>
             </Button>
           </div>
