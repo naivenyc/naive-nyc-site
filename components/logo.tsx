@@ -3,44 +3,34 @@ import { cn } from '@/lib/utils'
 interface LogoProps {
   className?: string
   iconOnly?: boolean
+  size?: number
 }
 
-export function Logo({ className, iconOnly = false }: LogoProps) {
+export function Logo({ className, iconOnly = false, size = 32 }: LogoProps) {
   return (
     <span className={cn('inline-flex items-center gap-2.5', className)}>
-      {/* Icon mark: stylised eye / scan circle */}
       <svg
-        width="32"
-        height="32"
+        width={size}
+        height={size}
         viewBox="0 0 32 32"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
         focusable="false"
       >
-        {/* Outer ring */}
-        <circle cx="16" cy="16" r="14" stroke="currentColor" strokeWidth="2" />
-        {/* Inner filled circle */}
-        <circle cx="16" cy="16" r="5" fill="currentColor" />
-        {/* Scan line top-left to bottom-right */}
-        <line
-          x1="6"
-          y1="6"
-          x2="12"
-          y2="12"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-        <line
-          x1="20"
-          y1="20"
-          x2="26"
-          y2="26"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
+        <circle cx="16" cy="16" r="15" fill="currentColor" />
+        <text
+          x="16"
+          y="22"
+          textAnchor="middle"
+          fontFamily="inherit"
+          fontWeight="700"
+          fontSize="18"
+          fill="white"
+          style={{ userSelect: 'none' }}
+        >
+          N
+        </text>
       </svg>
 
       {!iconOnly && (
