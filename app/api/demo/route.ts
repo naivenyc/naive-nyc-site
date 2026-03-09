@@ -2,15 +2,21 @@ import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
 export async function POST(request: Request) {
-  const resend = new Resend(process.env.RESEND_API_KEY)
-  const body = await request.json()
-  const { name, email, company, teamSize, message } = body
-
-  if (!name || !email) {
-    return NextResponse.json({ error: 'Name and email are required.' }, { status: 400 })
-  }
-
   try {
+    const body = await request.json()
+    const { name, email, company, teamSize, message } = body
+
+    if (!name || !email) {
+      return NextResponse.json({ error: 'Name and email are required.' }, { status: 400 })
+    }
+
+    if (!process.env.RESEND_API_KEY) {
+      console.error('RESEND_API_KEY not set')
+      return NextResponse.json({ error: 'Email service not configured. Please email hello@naive.nyc directly.' }, { status: 503 })
+    }
+
+    const resend = new Resend(process.env.RESEND_API_KEY)
+
     await resend.emails.send({
       from: 'Naive AI <noreply@naive.nyc>',
       to: 'hello@naive.nyc',
@@ -28,7 +34,6 @@ export async function POST(request: Request) {
       `,
     })
 
-    // Confirmation to the requester
     await resend.emails.send({
       from: 'Naive AI <noreply@naive.nyc>',
       to: email,
@@ -43,7 +48,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ ok: true })
   } catch (err) {
-    console.error('Demo email error:', err)
-    return NextResponse.json({ error: 'Failed to send. Please email hello@naive.nyc directly.' }, { status: 500 })
+    console.error('Demo route error:', err)
+    return NextResponse.json({ error: 'Something went wrong. Please email hello@naive.nyc directly.' }, { status: 500 })
   }
 }
