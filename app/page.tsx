@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Hero } from '@/components/sections/hero'
 import { Features } from '@/components/sections/features'
 import { HowItWorks } from '@/components/sections/how-it-works'
@@ -23,9 +24,14 @@ export default function Home() {
           <p className="text-lg opacity-80 max-w-xl">
             Join thousands of teams using Naive AI to build accessible websites. Start free, no credit card required.
           </p>
-          <Button size="lg" variant="secondary" asChild>
-            <a href="https://ai.naive.nyc/signup">Get started free →</a>
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Button size="lg" variant="secondary" asChild>
+              <a href="https://ai.naive.nyc/signup">Get started free →</a>
+            </Button>
+            <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
+              <Link href="/demo">Book a demo</Link>
+            </Button>
+          </div>
         </div>
       </section>
     </>

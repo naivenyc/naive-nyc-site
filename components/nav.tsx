@@ -45,6 +45,9 @@ export function Nav() {
           <Button variant="ghost" asChild>
             <a href="https://ai.naive.nyc/login">Sign in</a>
           </Button>
+          <Button variant="outline" asChild>
+            <Link href="/demo">Book a demo</Link>
+          </Button>
           <Button asChild>
             <a href="https://ai.naive.nyc/signup">Get started</a>
           </Button>
@@ -81,6 +84,9 @@ export function Nav() {
           <div className="flex flex-col gap-2 pt-2 border-t">
             <Button variant="ghost" asChild className="justify-start">
               <a href="https://ai.naive.nyc/login">Sign in</a>
+            </Button>
+            <Button variant="outline" asChild>
+              <Link href="/demo" onClick={() => setOpen(false)}>Book a demo</Link>
             </Button>
             <Button asChild>
               <a href="https://ai.naive.nyc/signup">Get started</a>

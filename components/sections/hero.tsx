@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, TrendingUp, Scale, AlertCircle } from 'lucide-react'
@@ -44,7 +45,7 @@ export function Hero() {
           </a>
         </Button>
         <Button size="lg" variant="outline" asChild>
-          <a href="#features">See features</a>
+          <Link href="/demo">Book a demo</Link>
         </Button>
       </div>
 
