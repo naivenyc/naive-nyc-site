@@ -24,7 +24,7 @@ export const caseStudies: CaseStudy[] = [
     tagline: 'From 44 to 93 — full WCAG 2.2 AA compliance in 6 weeks',
     description:
       'National Debt Relief is one of the largest debt settlement companies in the US, serving over 500,000 customers with a suite of financial tools and a customer-facing portal.',
-    logoUrl: 'https://logo.clearbit.com/nationaldebtrelief.com',
+    logoUrl: '/logos/national-debt-relief.svg',
     logoAlt: 'National Debt Relief logo',
     brandColor: '#0074e0',
     metrics: [
