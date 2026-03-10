@@ -75,8 +75,7 @@ export const caseStudies: CaseStudy[] = [
     tagline: 'Checkout conversion up 12% after making the storefront accessible',
     description:
       'GNGR Labs is a direct-to-consumer wellness brand specialising in high-absorption turmeric and ginger shots, selling through their Shopify storefront to tens of thousands of customers worldwide.',
-    logoUrl:
-      'https://gngrlabs.com/cdn/shop/files/Logo_2_7720098c-fce0-4dd7-a060-9cda758e3c4a.svg?v=1732011096&width=200',
+    logoUrl: '/logos/gngr-labs.svg',
     logoAlt: 'GNGR Labs logo',
     brandColor: '#E21D38',
     metrics: [
