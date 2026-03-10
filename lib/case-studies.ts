@@ -40,8 +40,8 @@ export const caseStudies: CaseStudy[] = [
       'Within 6 weeks, National Debt Relief reached a 93 accessibility score — up from 44 — and eliminated all 31 critical violations. Ongoing monitoring catches new issues within hours of deployment. The legal team now has a VPAT and audit trail ready for any regulatory inquiry. Their screen-reader-accessible checkout flow has seen a measurable improvement in task completion rates among users with disabilities.',
     quote:
       "We had no idea how broken our portal was for customers using screen readers. Naive AI showed us the full picture and helped us fix it faster than we thought possible.",
-    quoteName: 'Sarah M.',
-    quoteTitle: 'VP of Product, National Debt Relief',
+    quoteName: 'Arthur Khmura',
+    quoteTitle: 'Co-President & COO, National Debt Relief',
   },
   {
     slug: 'singlecase',
