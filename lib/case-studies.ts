@@ -50,7 +50,7 @@ export const caseStudies: CaseStudy[] = [
     tagline: 'WCAG compliance shipped in 2 weeks — with zero developer backlog',
     description:
       'SingleCase is a cloud-based practice management platform built for law firms and legal professionals, offering AI-powered document drafting, billing automation, and integrated case management.',
-    logoUrl: 'https://logo.clearbit.com/singlecase.com',
+    logoUrl: '/logos/singlecase.svg',
     logoAlt: 'SingleCase logo',
     brandColor: '#FF6B35',
     metrics: [
