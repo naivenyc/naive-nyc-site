@@ -93,8 +93,8 @@ export const caseStudies: CaseStudy[] = [
       'GNGR Labs achieved a 97 accessibility score — up from 62. Checkout conversion among all users improved by 12%, driven largely by clearer button labels and a more navigable product page. Over 1,200 customers per month actively use the accessibility widget. The brand now leads their niche on accessibility, which has become a talking point in their sustainability and inclusivity marketing.',
     quote:
       "We didn't realise how many customers we were losing because our checkout was broken for screen reader users. Two weeks later, conversion was up 12%. That paid for years of Naive AI.",
-    quoteName: 'Priya R.',
-    quoteTitle: 'Head of Growth, GNGR Labs',
+    quoteName: 'Namik Soltan',
+    quoteTitle: 'Founder & CEO, GNGR Labs',
   },
 ]
 
